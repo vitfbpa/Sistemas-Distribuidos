@@ -13,6 +13,10 @@ import javax.swing.JOptionPane;
 public class JFrame_Principal extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JFrame_Principal.class.getName());
+    private Movimenta movimenta;
+    private Thread threadRunnable;
+    private java.lang.Thread Thread;
+
 
     /**
      * Creates new form JFrame_Principal
