@@ -22,4 +22,4 @@
  
   ---
  
-  Para próxima aula, refazer o Tele Jogo (GitHub do professor) com uso de threads (sem e com compartilhamento de recursos).
+  Para próxima aula, refazer o Tele Jogo (GitHub do professor) com uso de threads (sem e com compartilhamento de recursos) e fazer uma pesquisa sobre Relógios físicos e lógicos.
