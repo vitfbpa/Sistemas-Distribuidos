@@ -1,25 +1,50 @@
-# Relógios Físicos e Lógicos
+# Sistemas Distribuídos – Tipos de Relógios
 
 ## Relógios Físicos
-- **Definição:** Baseados em hardware (osciladores de quartzo, relógios atômicos) para medir tempo real.  
-- **Problemas:** Sofrem *drift* (desvios) ao longo do tempo.  
-- **Sincronização:** Necessária em sistemas distribuídos. Algoritmos comuns:
-  - **Cristian:** Cliente consulta servidor de tempo.
-  - **Berkeley:** Média dos tempos dos nós.
-  - **NTP/PTP:** Protocolos modernos para internet e alta precisão.  
-- **Aplicações:** Logs, transações, auditoria.
+São baseados no tempo real do hardware, seguindo o padrão **UTC**.  
+Podem apresentar desvios de sincronização (clock drift) e, por isso, precisam ser ajustados por protocolos como o **NTP (Network Time Protocol)**.  
+**Aplicações:** coordenação de tarefas em tempo real, registro de logs e comunicação precisa.
 
 ## Relógios Lógicos
-- **Motivação:** Ordem dos eventos (causalidade) é mais importante que o tempo real.  
-- **Lamport:** Cada processo incrementa contador; mensagens carregam timestamp.  
-- **Limitações:** Não diferencia eventos concorrentes.  
-- **Relógios Vetoriais:** Vetores por processo, detectam causalidade e concorrência.  
+Não medem a hora real, mas organizam a **ordem dos eventos**.  
+São usados para manter a relação causal entre processos distribuídos.  
+Exemplos:  
+- **Relógio de Lamport:** fornece uma sequência parcial.  
+- **Relógio Vetorial:** garante ordem causal mais detalhada.  
 
-## Comparativo
+**Aplicações:** consistência na troca de mensagens e ordenação de eventos em sistemas distribuídos.
 
-| Aspecto         | Físico                   | Lógico                  |
-|-----------------|--------------------------|-------------------------|
-| Base            | Tempo real               | Ordem causal            |
-| Sincronização   | Protocolos de rede       | Troca de mensagens      |
-| Precisão        | Alta precisão temporal   | Consistência lógica     |
-| Aplicações      | Logs, auditoria          | Exclusão mútua, ordenação |
+---
+
+## Exclusão Mútua
+Mecanismo para garantir que apenas um processo acesse uma **região crítica** de cada vez.  
+
+**Características principais:**  
+- **Mutual Exclusion:** somente um processo utiliza o recurso por vez.  
+- **Progress:** se o recurso está disponível, algum processo deve ser atendido.  
+- **Bounded Waiting:** nenhum processo espera indefinidamente.  
+
+**Formas de implementação:**  
+- **Centralizada:** um coordenador controla o acesso.  
+- **Distribuída:** uso de algoritmos como **Ricart-Agrawala** ou **Token Ring**.  
+
+**Aplicações:** controle de recursos compartilhados como impressoras, arquivos ou bancos de dados.
+
+---
+
+## Eleição
+Algoritmo para definir um coordenador ou líder quando o sistema precisa de uma entidade central ou quando o líder atual falha.  
+
+**Principais métodos:**  
+- **Bully:** o processo com maior ID se torna o líder.  
+- **Ring:** os processos trocam mensagens em anel até o maior ID vencer.  
+
+**Aplicações:** coordenação e recuperação de falhas em sistemas distribuídos.
+
+---
+
+## Exemplo do Dia a Dia – Aeroportos
+- **Relógios Físicos:** todos os sistemas e painéis seguem horários globais (UTC) para voos e comunicações.  
+- **Relógios Lógicos:** organizam a sequência de eventos (check-in → bagagem → embarque → decolagem).  
+- **Exclusão Mútua:** a pista de pouso/decolagem é um recurso crítico, usado por um avião de cada vez, controlado pela torre de comando.  
+- **Eleição:** em caso de falha do sistema principal, outro controlador ou torre pode assumir a coordenação, garantindo a continuidade do serviço.
