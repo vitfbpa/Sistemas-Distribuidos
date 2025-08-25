@@ -17,3 +17,9 @@
 - **SINCRONISMO:** acesso à seção crítica → memória compartilhada
   - Java: `synchronized`
   - C# e Python: `lock`
+  - Via relógio: `físico e lógico`
+  - Exclusão mútua: `lock, relógio ou eleição`
+ 
+  ---
+ 
+  Para próxima aula, refazer o Tele Jogo (GitHub do professor) com uso de threads (sem e com compartilhamento de recursos).
